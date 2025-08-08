@@ -1,0 +1,30 @@
+.carouselContainer {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carouselTrack {
+  display: flex;
+  width: calc(288px * 12);
+  animation: scroll 40s linear infinite;
+}
+
+.carouselSlide {
+  flex-shrink: 0;
+  width: 12rem;
+  margin-right: 3rem;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-288px * 6));
+  }
+}
+@media (max-width: 768px) {
+  .carouselTrack {
+    animation-duration: 30s;
+  }
+}

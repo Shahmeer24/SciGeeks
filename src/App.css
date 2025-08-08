@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@tailwind utilities;
+@import "tailwindcss/preflight";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;700&display=swap');
+
+body {
+  @apply bg-white text-slate-700 font-sans antialiased;
+  transition-property: background-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+.dark body {
+  @apply bg-gray-900 text-slate-300;
+}
+.app-container {
+  @apply min-h-screen flex flex-col;
+}
+.main-content {
+  @apply flex-grow;
+}

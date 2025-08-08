@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+.alertContainer {
+  @apply fixed top-5 right-5 z-[100] transition-all duration-500 ease-in-out opacity-0 translate-x-10 pointer-events-none;
+}
+
+.showAlert {
+  @apply opacity-100 translate-x-0 pointer-events-auto;
+}
+
+.alertBox {
+  @apply flex items-center gap-4 p-4 rounded-lg border shadow-lg;
+}
+
+.closeButton {
+  @apply text-xl text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, MapPin, Calendar, Users } from 'lucide-react';
 import useIntersectionObserver from '../utility/useIntersectionObserver.js';
@@ -75,6 +75,10 @@ const ResearchInstitutes = () => {
       established: '1876',
     }
   ];
+
+  useEffect(()=>{
+      document.title="Research Institutes | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

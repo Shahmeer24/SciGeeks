@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle } from 'lucide-react';
 
 const Default = () => {
+  useEffect(()=>{
+      document.title="404 Page Not Found";
+    });
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-center px-4">
       <div className="flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 dark:bg-gray-800 mb-6">

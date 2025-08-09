@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, Users, BookOpen, Filter, Cpu } from 'lucide-react';
 import useIntersectionObserver from '../utility/useIntersectionObserver.js';
@@ -76,6 +76,10 @@ const Courses = () => {
   const filteredCourses = activeFilter === 'all' 
     ? courses 
     : courses.filter(course => course.category === activeFilter);
+
+  useEffect(()=>{
+      document.title="Courses | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

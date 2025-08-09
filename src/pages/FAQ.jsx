@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Search } from "lucide-react";
 import useIntersectionObserver from "../utility/useIntersectionObserver.js";
@@ -221,6 +221,10 @@ const FAQ = () => {
     "Admissions & Enrollment",
   ];
   const filteredFaqs = faqs.filter((faq) => faq.category === activeCategory);
+
+  useEffect(()=>{
+      document.title="FAQ | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

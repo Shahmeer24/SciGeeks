@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, GraduationCap, BookOpen } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa6";
@@ -98,6 +98,10 @@ const Team = () => {
       specialization: "Chemistry",
     },
   ];
+
+  useEffect(()=>{
+      document.title="Our Team | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

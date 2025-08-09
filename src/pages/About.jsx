@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Target, BookCopy, Users, FlaskConical } from 'lucide-react';
 import useIntersectionObserver from '../utility/useIntersectionObserver.js';
 import styles from "../pagestyles/About.module.css";
@@ -37,6 +37,10 @@ const About = () => {
     { year: '2023', title: 'Community Growth', description: 'Expanded our course offerings and grew our community to hundreds of aspiring scientists across the nation.' },
     { year: 'Today', title: 'Inspiring the Future', description: 'We continue to innovate, providing a launchpad for students to confidently step into the world of scientific discovery.' },
   ];
+
+  useEffect(()=>{
+      document.title="About | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-300">

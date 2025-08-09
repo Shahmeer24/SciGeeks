@@ -1,46 +1,45 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import React, { Suspense, lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 
 // Contexts
-import { ThemeProvider } from './context/ThemeContext';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { AlertProvider, useAlert } from './context/AlertContext';
+import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AlertProvider, useAlert } from "./context/AlertContext";
 
 // Styles
-import './styles/global.css';
+import "./styles/global.css";
 
-// Components
-import Navbar from './components/NavBar';
-import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
-import WhatsAppButton from './components/WhatsAppButton';
-import Alert from './components/Alert';
-import Loader from './components/Loader';
+// Layout & UI Components
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import WhatsAppButton from "./components/WhatsAppButton";
+import Alert from "./components/Alert";
+import Loader from "./components/Loader";
 
-// Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import ResearchInstitutes from './pages/ResearchInstitute';
-import Courses from './pages/Courses';
-import Team from './pages/Team';
-import Contact from './pages/Contact';
-import FAQ from './pages/FAQ';
-import Auth from './pages/Auth';
-import FreeTestPanel from './pages/FreeTestPanel';
-import Default from './pages/Default';
+// Page Components
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const ResearchInstitutes = lazy(() => import("./pages/ResearchInstitute"));
+const Courses = lazy(() => import("./pages/Courses"));
+const Team = lazy(() => import("./pages/Team"));
+const Contact = lazy(() => import("./pages/Contact"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const Auth = lazy(() => import("./pages/Auth"));
+const FreeTestPanel = lazy(() => import("./pages/FreeTestPanel"));
+const Default = lazy(() => import("./pages/Default"));
 
 const MainLayout = () => {
-  const { alert, hideAlert } = useAlert();
   return (
     <div className="app-container">
       <Navbar />
       <main className="main-content">
         <ScrollToTop />
-        <Alert 
-          message={alert.message} 
-          type={alert.type}
-          onClose={hideAlert} 
-        />
         <Outlet />
       </main>
       <WhatsAppButton />
@@ -50,28 +49,37 @@ const MainLayout = () => {
 };
 
 const AppContent = () => {
-  const { loading } = useAuth();
+  const { loading: authLoading } = useAuth();
+  const { alert, hideAlert } = useAlert();
 
-  if (loading) {
+  if (authLoading) {
     return <Loader />;
   }
 
   return (
-    <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/research-institutes" element={<ResearchInstitutes />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/freetestpanel" element={<FreeTestPanel />} />
-      </Route>
+    <>
+      <Alert message={alert.message} type={alert.type} onClose={hideAlert} />
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/research-institutes"
+              element={<ResearchInstitutes />}
+            />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/freetestpanel" element={<FreeTestPanel />} />
+          </Route>
 
-      <Route path="/auth" element={<Auth />} />
-      <Route path="*" element={<Default />} />
-    </Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="*" element={<Default />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 

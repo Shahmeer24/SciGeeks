@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { FilePenLine, Clock, HelpCircle } from 'lucide-react';
 import useIntersectionObserver from "../utility/useIntersectionObserver.js";
@@ -22,6 +22,10 @@ const FreeTestPanel = () => {
       link: '#'
     },
   ];
+
+  useEffect(()=>{
+      document.title="Tests | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

@@ -24,20 +24,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (!currentUser) {
-        // If user logs out, sign them in anonymously
-        signInAnonymously(auth).catch((error) => {
-          console.error("Anonymous sign-in failed after logout:", error);
-        });
-      }
       setLoading(false);
     });
 
-    // Initial anonymous sign-in
-    signInAnonymously(auth).catch((error) => {
-        console.error("Initial anonymous sign-in failed:", error);
-    });
-
+    // Attempt initial anonymous sign-in only if there's no active user
+    if (!auth.currentUser) {
+      signInAnonymously(auth).catch((error) => {
+          console.error("Initial anonymous sign-in failed:", error);
+      });
+    }
 
     return () => unsubscribe();
   }, []);
@@ -50,8 +45,10 @@ export const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    await signOut(auth);
+    // After logging out, ensure an anonymous session is re-established for browsing
+    return signInAnonymously(auth);
   };
   
   const signInWithGoogle = () => {

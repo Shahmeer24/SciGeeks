@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "../context/AlertContext";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
@@ -57,6 +57,10 @@ const Contact = () => {
     },
     { icon: Mail, title: "Email", detail: "scigeekss@gmail.com" },
   ];
+
+  useEffect(()=>{
+      document.title="Contact Us | SciGeeks";
+    });
 
   return (
     <div className="bg-white dark:bg-gray-900">

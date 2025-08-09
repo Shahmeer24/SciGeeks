@@ -8,7 +8,7 @@ const icons = {
   warning: <AlertTriangle className="w-6 h-6 text-yellow-500" />,
 };
 
-const Alert = ({ message, type = 'success', duration = 5000, onClose }) => {
+const Alert = ({ message, type = 'success', duration = 3000, onClose }) => {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -29,7 +29,6 @@ const Alert = ({ message, type = 'success', duration = 5000, onClose }) => {
       <div className={`${styles.alertBox} ${alertClasses[type]}`}>
         {icons[type]}
         <p className="font-medium text-sm text-slate-700 dark:text-slate-200">{message}</p>
-        <button onClick={onClose} className={styles.closeButton}>&times;</button>
       </div>
     </div>
   );
